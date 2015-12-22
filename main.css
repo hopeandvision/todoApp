@@ -1,0 +1,49 @@
+.todoWrapper{
+	width: 305px;
+	float: left;
+	padding: 15px 2px;
+	margin: 10px;
+	background-color: #f7f8fa; 
+	border-radius: 10px;
+}
+input.todoText{
+	width: 70%;
+	height: 20px;
+	padding: 3px;
+	outline: 0;
+}
+.todoWrapper ul{
+	padding: 0px;
+	margin: 0px;
+	list-style-type: none;
+}
+.todoWrapper ul li {
+	padding: 7px 10px 0 2px;
+}
+span.removeElem{
+	float: right;
+	cursor: pointer;
+	color: red;
+}
+button.addButton{
+	background-color:#44c767;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+	border:1px solid #18ab29;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:13px;
+    padding: 7px 11px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #2f6627;
+}
+button.addButton:hover {
+	background-color:#5cbf2a;
+}
+button.addButton:active {
+	position:relative;
+	top:1px;
+}
