@@ -6,6 +6,20 @@
 	$(document).off("click", ".addButton");
 	$(document).on("click", ".addButton", function () {
 
+
+		$.ajax({
+			url: 'http://127.0.0.1:8000',
+			data: "string to modify",
+			error: function() {
+				$('#info').html('<p>An error has occurred</p>');
+			},
+			//dataType: 'jsonp',
+			success: function(data) {
+				console.log(data);
+			},
+			type: 'GET'
+		});
+
 		var listInstance = $(this).parent();
 		var itemToAdd = listInstance.children(".todoText");
 		var list = listInstance.children(".todoList");
