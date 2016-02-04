@@ -1,66 +1,38 @@
+(function() {
 
-function checkEvent(e){
-	
-	if (e.keyCode == 13){
-		checkAndAdd.call(this);
+	// init tooltips
+	$('[data-toggle="tooltip"]').tooltip()
+
+	$(document).off("click", ".addButton");
+	$(document).on("click", ".addButton", function () {
+
+		var listInstance = $(this).parent();
+		var itemToAdd = listInstance.children(".todoText");
+		var list = listInstance.children(".todoList");
+
+		toggleValidationMessage(itemToAdd);
+		addItemToList(list, itemToAdd);
+	});
+
+	$(document).off("click", ".removeElem");
+	$(document).on("click", ".removeElem", function(){
+		$(this).parent().remove();
+	});
+
+	var validateItem = function (item) {
+		return item == "" ? true : false;
+	};
+
+	var toggleValidationMessage = function (item) {
+		item.val() == "" ? item.tooltip('show') : item.tooltip('hide');
 	}
-}
 
-function addButtonClick(){
+	function addItemToList (list, item) {
 
-	checkAndAdd.call(getChildrenByTagName(this,"INPUT"));
-}
+		if (validateItem(item.val())) return;
 
-function removeElem(e){
-
-	if (e.target.tagName == "SPAN"){
-		e.target.parentElement.remove()
+		list.append("<li>" + item.val() + "<span class='removeElem'> X</span> </li>")
+		item.val('');
 	}
-}
 
-function checkAndAdd(e){
-
-	if (this.value !== "" ){
-		var inputVal = this.value;
-		var closestToDoList = getChildrenByTagName(this,"UL");
-		var listChild = closestToDoList.children[0]
-		var li = document.createElement('li')
-		li.innerHTML = inputVal + "<span class='removeElem'>  X</span>"
-
-		closestToDoList.appendChild(li);
-		this.value = "";
-	}
-};
-
-function getChildrenByTagName(currentElem, elemTagName){
-
-	var elemParent = currentElem.parentNode;
-	var childrenNodes = elemParent.childNodes;
-	var foundElem;
-
-	for (var i = 0; i < childrenNodes.length; i++ ){
-		if (childrenNodes[i].tagName == elemTagName){
-			foundElem = childrenNodes[i];
-			break;
-		}
-	}
-	
-	return foundElem;
-}
-
-
-var inputs = document.getElementsByClassName("todoText");
-var addButons = document.getElementsByClassName("addButton");
-var removeBtns = document.getElementsByClassName("removeElem");
-
-addEvent("keydown", inputs, checkEvent);
-addEvent("click", removeBtns, removeElem);
-addEvent("click", addButons, addButtonClick);
-
-function addEvent(eventType, elements, functionCall){
-	for (var i = 0; i < elements.length; i++){
-		elements[i].addEventListener(eventType, functionCall, false);
-	}
-}
-
-document.addEventListener("click", removeElem);
+})();
